@@ -1,7 +1,7 @@
 import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
 import { Request, Response } from 'express';
 
-import { AuthenticatedGuard, DiscordAuthGuard } from 'src/auth/guards';
+import { AuthenticatedGuard, DiscordAuthGuard } from 'src/auth/utils/Guards';
 
 @Controller('auth')
 export class AuthController {

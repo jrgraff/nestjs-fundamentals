@@ -35,7 +35,7 @@ if (process.env.ENVIRONMENT === 'PRODUCTION') {
     GraphQLModule.forRoot({
       typePaths: ['./**/*.graphql'],
       definitions: {
-        path: join(process.cwd(), 'src', 'graphql.ts'),
+        path: join(process.cwd(), 'src', 'graphql', 'index.ts'),
       },
       useGlobalPrefix: true,
       cors: {
