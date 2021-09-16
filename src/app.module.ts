@@ -1,10 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
+import { GraphQLModule } from '@nestjs/graphql';
 
 import { AuthModule } from './auth/auth.module';
 import { entities } from './typeorm';
 import { PassportModule } from '@nestjs/passport';
+import { join } from 'path/posix';
+import { UserResolver } from './graphql/resolvers/User.resolver';
 
 let envFilePath = '.env.local';
 
@@ -29,8 +32,18 @@ if (process.env.ENVIRONMENT === 'PRODUCTION') {
       entities,
       synchronize: true,
     }),
+    GraphQLModule.forRoot({
+      typePaths: ['./**/*.graphql'],
+      definitions: {
+        path: join(process.cwd(), 'src', 'graphql.ts'),
+      },
+      useGlobalPrefix: true,
+      cors: {
+        origin: 'http://localhost:3000',
+      },
+    }),
   ],
   controllers: [],
-  providers: [],
+  providers: [UserResolver],
 })
 export class AppModule {}

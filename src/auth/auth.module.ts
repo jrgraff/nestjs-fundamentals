@@ -18,5 +18,11 @@ import { SessionSerializer } from './utils/Serializer';
     },
   ],
   imports: [TypeOrmModule.forFeature([User])],
+  exports: [
+    {
+      provide: 'AUTH_SERVICE',
+      useClass: AuthService,
+    },
+  ],
 })
 export class AuthModule {}

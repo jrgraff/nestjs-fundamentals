@@ -12,6 +12,10 @@ async function bootstrap() {
   const PORT = process.env.PORT || 3003;
   const sessionRepository = getRepository(TypeORMSession);
   app.setGlobalPrefix('api');
+  app.enableCors({
+    origin: ['http://localhost:3000'],
+    credentials: true,
+  });
   app.use(
     session({
       cookie: {
