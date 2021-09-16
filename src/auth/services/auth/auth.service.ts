@@ -14,7 +14,6 @@ export class AuthService implements IAuthenticationProvider {
   async validateUser(details: UserDetails) {
     const { discordId } = details;
     const user = await this.userRepository.findOne({ discordId });
-    console.log(user);
     if (user) return user;
     return await this.createUser(details);
   }

@@ -1,7 +1,7 @@
-import { Controller, Get, Res, UseGuards } from '@nestjs/common';
-import { Response } from 'express';
+import { Controller, Get, Req, Res, UseGuards } from '@nestjs/common';
+import { Request, Response } from 'express';
 
-import { DiscordAuthGuard } from 'src/auth/guards';
+import { AuthenticatedGuard, DiscordAuthGuard } from 'src/auth/guards';
 
 @Controller('auth')
 export class AuthController {
@@ -18,10 +18,14 @@ export class AuthController {
   }
 
   @Get('status')
-  status() {
-    return 'ok';
+  @UseGuards(AuthenticatedGuard)
+  status(@Req() req: Request) {
+    return req.user;
   }
 
   @Get('logout')
-  logout() {}
+  @UseGuards(AuthenticatedGuard)
+  logout(@Req() req: Request) {
+    req.logOut();
+  }
 }
